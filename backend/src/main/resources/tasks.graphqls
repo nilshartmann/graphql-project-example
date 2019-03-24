@@ -1,0 +1,38 @@
+type Task {
+  id: ID!
+
+  # Give your tasks a simple, concise title
+  title: String!
+
+  # Describe your task in detail with as many words as you need
+  description: String!
+
+  # You can split your Taks into several activities that help you
+  # to structure, plan and implement your Task
+  activities: [Activity!]!
+}
+
+enum ActivityState {
+  CREATED,
+  STARTED,
+  FINISHED,
+}
+
+# An Activity is part of a Task. It represents an actual
+# activity (or sub-task) of a Tasks that needs to be fulfilled
+# to complete the Task
+type Activity {
+  id: ID!
+
+  # A concicse title of this activity, that describes what to do
+  title: String!
+  state: ActivityState!
+
+  # Your activity always belongs to exactly one task
+  task: Task!
+}
+
+type Query {
+  # This returns a list of all of your tasks
+  tasks: [Task!]!
+}
