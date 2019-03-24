@@ -3,14 +3,8 @@ package nh.graphql.tasks;
 import nh.graphql.tasks.domain.Task;
 import nh.graphql.tasks.domain.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * @author Nils Hartmann (nils@nilshartmann.net)

@@ -9,12 +9,12 @@ import java.util.List;
  * @author Nils Hartmann (nils@nilshartmann.net)
  */
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_id_generator")
-	@SequenceGenerator(name="task_id_generator", sequenceName = "task_id_seq", initialValue = 1000)
+	@SequenceGenerator(name = "task_id_generator", sequenceName = "task_id_seq", initialValue = 1000)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
@@ -30,7 +30,8 @@ public class Task {
 	@OrderBy("id")
 	private List<Activity> activities = new LinkedList<>();
 
-	protected Task() {}
+	protected Task() {
+	}
 
 	public Task(String title, String description) {
 		this.title = title;

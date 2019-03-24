@@ -7,12 +7,12 @@ import javax.validation.constraints.NotNull;
  * @author Nils Hartmann (nils@nilshartmann.net)
  */
 @Entity
-@Table(name="activities")
+@Table(name = "activities")
 public class Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "activity_id_generator")
-	@SequenceGenerator(name="activity_id_generator", sequenceName = "activity_id_seq", initialValue = 2000)
+	@SequenceGenerator(name = "activity_id_generator", sequenceName = "activity_id_seq", initialValue = 2000)
 	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
 
@@ -24,9 +24,10 @@ public class Activity {
 	private String title;
 
 	@NotNull
-	private  ActivityState state;
+	private ActivityState state;
 
-	protected Activity() {}
+	protected Activity() {
+	}
 
 	Activity(Task task, String title) {
 		this.task = task;
