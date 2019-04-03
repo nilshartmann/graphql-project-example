@@ -22,7 +22,7 @@ type Project {
 
   # You split your Project into several tasks that you
   # have to work on to finish this Project's goal
-  tasks: [Task!]!
+  tasks(page: Int, pageSize: Int): TaskConnection!
 }
 
 enum TaskState {
@@ -54,6 +54,19 @@ type Task {
   project: Project!
 
   toBeFinishedAt: String!
+}
+
+type PageResult {
+  page: Int!
+  totalCount: Int!
+  totalPageCount: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type TaskConnection {
+  page: PageResult!
+  nodes: [Task!]!
 }
 
 type Query {
