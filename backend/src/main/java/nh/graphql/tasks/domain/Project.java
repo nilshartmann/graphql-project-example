@@ -19,11 +19,11 @@ public class Project {
 	private Long id;
 
 	@NotNull
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
 	@NotNull
-	@Column(name = "description")
+	@Column(name = "description", nullable = false)
 	private String description;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "project")
@@ -35,17 +35,35 @@ public class Project {
     @JoinColumn(name="owner_id", nullable = false)
     private User owner;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id", nullable = false)
+    private Category category;
+
 	protected Project() {
 	}
 
-	public Project(User owner, String title, String description) {
+	public Project(User owner, Category category, String title, String description) {
 	    this.owner = owner;
+	    this.category = category;
 		this.title = title;
 		this.description = description;
 	}
 
-	public void addTask(Task task) {
+	public void addTasks(Task... tasks) {
+        for (Task task : tasks) {
+            addTask(task);
+        }
+    }
+
+	public Project addTask(Task task) {
+        if (!this.equals(task.getProject())) {
+            throw new IllegalStateException(String.format("Task with id '%s' (%s) cannot be assigned to project '%s (%s)'. Task already assigned to project '%s'",
+                task.getId(), task.getTitle(), getId(), getTitle(), task.getProject().getId()));
+        }
 		this.tasks.add(task);
+
+		return this;
 	}
 
     public List<Task> getTasks() {

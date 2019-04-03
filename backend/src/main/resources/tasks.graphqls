@@ -1,38 +1,65 @@
-type Task {
+type User {
   id: ID!
 
-  # Give your tasks a simple, concise title
+  # The login is used by the user to log in to our System
+  login: String!
+
+  # The human readable name of the person
+  name: String!
+}
+
+type Project {
+  id: ID!
+
+  # Give your project a simple, concise title
   title: String!
 
   # Describe your project in detail with as many words as you need
   description: String!
 
-  # You can split your Taks into several activities that help you
-  # to structure, plan and implement your Project
-  activities: [Activity!]!
+  # The project owner
+  owner: User!
+
+  # You split your Project into several tasks that you
+  # have to work on to finish this Project's goal
+  tasks: [Task!]!
 }
 
-enum ActivityState {
-  CREATED,
-  STARTED,
+enum TaskState {
+  NEW,
+  RUNNING,
   FINISHED,
 }
 
-# An Task is part of a Project. It represents an actual
-# task (or sub-project) of a Tasks that needs to be fulfilled
+# A Task is part of a Project. It represents an actual
+# task of a Tasks that needs to be fulfilled
 # to complete the Project
-type Activity {
+type Task {
   id: ID!
 
   # A concicse title of this task, that describes what to do
   title: String!
-  state: ActivityState!
+
+  # A complete and detailed description what should be done in this task.
+  # The description should be understandable also by people that are not
+  # familiar with this task, so they can get into without having
+  # to ask for further details
+  description: String!
+  state: TaskState!
+
+  # Who works on this Task or should work on the task
+  assignee: User!
 
   # Your task always belongs to exactly one project
-  project: Task!
+  project: Project!
 }
 
 type Query {
-  # This returns a list of all of your tasks
-  tasks: [Task!]!
+  users: [User!]!
+
+  # Return an unordered list of all projects
+  # Everyone can actually SEE any projects without
+  # being logged in. Only modifications to a project
+  # (or Task) can be done when logged in
+  projects: [Project!]!
 }

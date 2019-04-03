@@ -9,5 +9,5 @@ public enum TaskState {
 
 	RUNNING,
 
-	DONE,
+    FINISHED,
 }

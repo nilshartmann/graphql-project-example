@@ -16,8 +16,8 @@ public class Task {
 	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "task_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "project_id")
 	private Project project;
 
     @NotNull
@@ -30,7 +30,7 @@ public class Task {
 	private String title;
 
 	@NotNull
-    @Column(name="description", nullable = false)
+    @Column(name="description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
 	@NotNull
@@ -40,12 +40,17 @@ public class Task {
 	}
 
 	public Task(Project project, User assignee, String title, String description) {
-		this.project = project;
-		this.assignee = assignee;
-		this.title = title;
-		this.description = description;
-		this.state = TaskState.NEW;
+		this(project, assignee, title, description, TaskState.NEW);
 	}
+
+	/** FOR TEST/IMPORT ONLY */
+    public Task(Project project, User assignee, String title, String description, TaskState state) {
+        this.project = project;
+        this.assignee = assignee;
+        this.title = title;
+        this.description = description;
+        this.state = state;
+    }
 
 	public Project getProject() {
 		return project;
@@ -65,5 +70,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public TaskState getState() {
+        return state;
+    }
+
+    public long getId() {
+        return id;
     }
 }
