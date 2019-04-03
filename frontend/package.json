@@ -69,7 +69,6 @@
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-link-ws": "^1.0.17",
-    "cors": "^2.8.4",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.0",
     "react": "^16.8.6",
