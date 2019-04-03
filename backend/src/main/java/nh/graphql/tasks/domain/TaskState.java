@@ -3,11 +3,11 @@ package nh.graphql.tasks.domain;
 /**
  * @author Nils Hartmann (nils@nilshartmann.net)
  */
-public enum ActivityState {
+public enum TaskState {
 
-	CREATED,
+	NEW,
 
-	STARTED,
+	RUNNING,
 
-	FINISHED,
+	DONE,
 }

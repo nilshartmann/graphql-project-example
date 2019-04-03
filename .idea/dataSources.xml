@@ -4,8 +4,9 @@
     <data-source source="LOCAL" name="H2 - testdb" uuid="781f54a2-ded4-4aae-b9a3-9c219c20a38b">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:mem:testdb</jdbc-url>
+      <jdbc-url>jdbc:h2:tcp://localhost/~/test</jdbc-url>
     </data-source>
   </component>
 </project>

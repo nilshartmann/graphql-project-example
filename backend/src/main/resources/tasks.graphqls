@@ -4,11 +4,11 @@ type Task {
   # Give your tasks a simple, concise title
   title: String!
 
-  # Describe your task in detail with as many words as you need
+  # Describe your project in detail with as many words as you need
   description: String!
 
   # You can split your Taks into several activities that help you
-  # to structure, plan and implement your Task
+  # to structure, plan and implement your Project
   activities: [Activity!]!
 }
 
@@ -18,18 +18,18 @@ enum ActivityState {
   FINISHED,
 }
 
-# An Activity is part of a Task. It represents an actual
-# activity (or sub-task) of a Tasks that needs to be fulfilled
-# to complete the Task
+# An Task is part of a Project. It represents an actual
+# task (or sub-project) of a Tasks that needs to be fulfilled
+# to complete the Project
 type Activity {
   id: ID!
 
-  # A concicse title of this activity, that describes what to do
+  # A concicse title of this task, that describes what to do
   title: String!
   state: ActivityState!
 
-  # Your activity always belongs to exactly one task
-  task: Task!
+  # Your task always belongs to exactly one project
+  project: Task!
 }
 
 type Query {
