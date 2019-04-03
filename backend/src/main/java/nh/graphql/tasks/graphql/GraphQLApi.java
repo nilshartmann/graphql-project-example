@@ -44,6 +44,10 @@ public class GraphQLApi {
 			.type(newTypeWiring("Query")
 				.dataFetcher("users", environment -> userRepository.findAll())
                 .dataFetcher("projects", environment -> projectRepository.findAll())
+                .dataFetcher("project", environment -> {
+                    long id = Long.parseLong(environment.getArgument("id"));
+                    return projectRepository.findById(id);
+                })
 			)
 			.build();
 

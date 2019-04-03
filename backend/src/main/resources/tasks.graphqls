@@ -52,6 +52,8 @@ type Task {
 
   # Your task always belongs to exactly one project
   project: Project!
+
+  toBeFinishedAt: String!
 }
 
 type Query {
@@ -62,4 +64,7 @@ type Query {
   # being logged in. Only modifications to a project
   # (or Task) can be done when logged in
   projects: [Project!]!
+
+  # Return the specified project
+  project(id: ID!): Project
 }
