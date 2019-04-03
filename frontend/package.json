@@ -56,7 +56,6 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "@types/cors": "^2.8.4",
     "@types/graphql": "^14.0.3",
     "@types/prop-types": "^15.5.7",
     "@types/react": "^16.8.11",
