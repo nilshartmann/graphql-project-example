@@ -34,7 +34,6 @@
     "@types/webpack-env": "1.13.2",
     "apollo": "^1.9.2",
     "awesome-typescript-loader": "^5.2.1",
-    "babylon": "7.0.0-beta.46",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "graphql-tools": "^4.0.0",
