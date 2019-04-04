@@ -1,0 +1,147 @@
+:root {
+  --color-background: #ECF2F6;
+  --color-background-2: #F4F7FB;
+  --color-text: #3E475A;
+  --color-main: #2675BE;
+  --color-white: #ffffff;
+
+  --font-text: Roboto, Arial, sans-serif;
+  --font-medium: 500;
+}
+
+:global {
+  body,
+  html {
+    font-family: var(--font-text);
+    color: var(--color-text);
+    background-color: white;
+    font-size: 14px;
+  }
+
+  body {
+    overflow-y: scroll;
+    height: 100vh;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  #app {
+    min-height: 100%;
+
+    display: grid;
+
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: var(--font-medium);
+  }
+
+  table {
+    width: 100%;
+    filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.161));
+    border-spacing: 0;
+    margin-bottom: 2rem;
+
+    td {
+      line-height: 1;
+    }
+
+    thead {
+      tr {
+        height: 4rem;
+        background-color: var(--color-background-2);
+
+        th {
+          padding-left: 3rem;
+          text-transform: uppercase;
+          font-weight: var(--font-medium);
+
+          // https://jsfiddle.net/zinoui/3LfE2/
+          &:first-child {
+              border-radius: 10px 0 0 0;
+          }
+          &:last-child {
+            border-radius: 0 10px 0 0;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        height: 4rem;
+        background-color: var(--color-background-2);
+        &:nth-child(odd) {
+          background-color: var(--color-white);
+        }
+
+        &:last-child {
+          td:first-child {
+            border-radius: 0 0 0 10px;
+          }
+
+          td:last-child {
+            border-radius: 0 0 10px 0;
+          }
+        }
+      }
+
+
+      td {
+        padding-left: 3rem;
+      }
+    }
+  }
+}
+
+.ProjectApp {
+  background-color: var(--color-background);
+  height: 100%;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  border-bottom: 9px solid var(--color-main);
+  .Header {
+    background: linear-gradient( to bottom, var(--color-main), #4B87BE );
+    color: var(--color-white);
+    height: 4rem;
+    font-size: 1.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding-left: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  main {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+.TasksPage {
+  header {
+    margin-bottom: 1rem;
+
+    h1 {
+      margin-left: 3rem;
+    }
+  }
+
+  .ButtonBar {
+    margin-left: 3rem;
+  }
+}
