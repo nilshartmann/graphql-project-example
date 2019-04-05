@@ -1,0 +1,11 @@
+.Cardboard {
+  display: flex;
+  justify-content: space-between;
+
+  > * {
+    margin-right: 2rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

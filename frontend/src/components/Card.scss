@@ -1,0 +1,16 @@
+.Card {
+  background-color: var(--color-white);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.161);
+
+  flex: 1;
+
+  .CardLabel {
+    color: var(--color-text-dim);
+  }
+  .CardTitle {
+    font-size: 1.5rem;
+  }
+}
