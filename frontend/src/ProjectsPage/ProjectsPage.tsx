@@ -2,50 +2,78 @@ import * as React from "react";
 import * as styles from "./ProjectsPage.scss";
 import NavButton from "../components/NavButton";
 import { useNavigator } from "../infra/NavigationProvider";
+import gql from "graphql-tag";
+import { ProjectsPageQuery, ProjectsPageQuery_projects } from "../querytypes/ProjectsPageQuery";
+import { Query } from "react-apollo";
 
-const TABLE = [
-  ["Project 1", "Klaus Dieter Müller", "Reise"],
-  ["Frühjahrsputz", "Ludger Schmidt", "Business"],
-  ["GraphQL", "Dirk Meier", "Business"],
-  ["Banking", "Maja Smith", "Private"]
-];
+const PROJECTS_QUERY = gql`
+  query ProjectsPageQuery {
+    projects {
+      id
+      title
+      owner {
+        name
+      }
+      category {
+        name
+      }
+    }
+  }
+`;
 
 interface ProjectsTableProps {
-  projects: typeof TABLE;
+  projects: ProjectsPageQuery_projects[];
 }
-function ProjectsTable({ projects }: ProjectsTableProps) {}
+
+function ProjectsTable({ projects }: ProjectsTableProps) {
+  const navigator = useNavigator();
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Category</th>
+          <th />
+        </tr>
+      </thead>
+      <tbody>
+        {projects.map(project => {
+          return (
+            <tr key={project.id}>
+              <td>{project.title}</td>
+              <td>{project.owner.name}</td>
+              <td>{project.category.name}</td>
+              <td>
+                <NavButton onClick={() => navigator.openTasksPage(project.id)} />
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
 
 export default function ProjectsPage() {
-  const navigator = useNavigator();
   return (
     <div className={styles.ProjectsPage}>
       <header>
         <h1>Your Projects</h1>
       </header>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>Category</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {TABLE.map((row, rowIx) => {
-            return (
-              <tr key={rowIx}>
-                {row.map((col, colIx) => {
-                  return <td key={colIx}>{col}</td>;
-                })}
-                <td>
-                  <NavButton onClick={() => navigator.openTasksPage(`project_${rowIx}`)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+
+      <Query<ProjectsPageQuery> query={PROJECTS_QUERY}>
+        {result => {
+          if (result.loading) {
+            return <h2>Loading...</h2>;
+          }
+          if (result.error || !result.data) {
+            return <h2>Sorry... Something failed while loading data </h2>;
+          }
+
+          return <ProjectsTable projects={result.data.projects} />;
+        }}
+      </Query>
     </div>
   );
 }

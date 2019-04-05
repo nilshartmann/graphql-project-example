@@ -20,9 +20,16 @@ type Project {
   # The project owner
   owner: User!
 
+  category: Category!
+
   # You split your Project into several tasks that you
   # have to work on to finish this Project's goal
   tasks(page: Int, pageSize: Int): TaskConnection!
+}
+
+type Category {
+  id: ID!
+  name: String!
 }
 
 enum TaskState {
