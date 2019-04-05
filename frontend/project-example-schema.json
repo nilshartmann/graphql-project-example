@@ -40,7 +40,7 @@
           },
           {
             "name": "projects",
-            "description": " Return an unordered list of all projects\n Everyone can actually SEE any projects without\n being logged in. Only modifications to a project\n (or Task) can be done when logged in",
+            "description": "Return an unordered list of all projects\nEveryone can actually SEE any projects without\nbeing logged in. Only modifications to a project\n(or Task) can be done when logged in",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -157,7 +157,7 @@
           },
           {
             "name": "tasks",
-            "description": " You split your Project into several tasks that you\n have to work on to finish this Project's goal",
+            "description": "You split your Project into several tasks that you\nhave to work on to finish this Project's goal",
             "args": [
               {
                 "name": "page",
@@ -347,7 +347,7 @@
       {
         "kind": "OBJECT",
         "name": "Task",
-        "description": " A Task is part of a Project. It represents an actual\n task of a Tasks that needs to be fulfilled\n to complete the Project",
+        "description": "A Task is part of a Project. It represents an actual\ntask of a Tasks that needs to be fulfilled\nto complete the Project",
         "fields": [
           {
             "name": "assignee",
@@ -367,7 +367,7 @@
           },
           {
             "name": "description",
-            "description": " A complete and detailed description what should be done in this task.\n The description should be understandable also by people that are not\n familiar with this task, so they can get into without having\n to ask for further details",
+            "description": "A complete and detailed description what should be done in this task.\nThe description should be understandable also by people that are not\nfamiliar with this task, so they can get into without having\nto ask for further details",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1261,54 +1261,6 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "onOperation",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": true,
-            "deprecationReason": "Use `locations`."
-          },
-          {
-            "name": "onFragment",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": true,
-            "deprecationReason": "Use `locations`."
-          },
-          {
-            "name": "onField",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": true,
-            "deprecationReason": "Use `locations`."
           }
         ],
         "inputFields": null,
@@ -1363,6 +1315,12 @@
           {
             "name": "INLINE_FRAGMENT",
             "description": "Location adjacent to an inline fragment.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "VARIABLE_DEFINITION",
+            "description": "Location adjacent to a variable definition.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -1438,38 +1396,15 @@
     ],
     "directives": [
       {
-        "name": "include",
-        "description": "Directs the executor to include this field or fragment only when the `if` argument is true",
-        "locations": [
-          "FIELD",
-          "FRAGMENT_SPREAD",
-          "INLINE_FRAGMENT"
-        ],
-        "args": [
-          {
-            "name": "if",
-            "description": "Included when true.",
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          }
-        ]
+        "name": "defer",
+        "description": "This directive allows results to be deferred during execution",
+        "locations": ["FIELD"],
+        "args": []
       },
       {
         "name": "skip",
-        "description": "Directs the executor to skip this field or fragment when the `if`'argument is true.",
-        "locations": [
-          "FIELD",
-          "FRAGMENT_SPREAD",
-          "INLINE_FRAGMENT"
-        ],
+        "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
+        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
         "args": [
           {
             "name": "if",
@@ -1488,24 +1423,34 @@
         ]
       },
       {
-        "name": "defer",
-        "description": "This directive allows results to be deferred during execution",
-        "locations": [
-          "FIELD"
-        ],
-        "args": []
+        "name": "include",
+        "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
+        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+        "args": [
+          {
+            "name": "if",
+            "description": "Included when true.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ]
       },
       {
         "name": "deprecated",
-        "description": null,
-        "locations": [
-          "FIELD_DEFINITION",
-          "ENUM_VALUE"
-        ],
+        "description": "Marks an element of a GraphQL schema as no longer supported.",
+        "locations": ["FIELD_DEFINITION", "ENUM_VALUE"],
         "args": [
           {
             "name": "reason",
-            "description": null,
+            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax (as specified by [CommonMark](https://commonmark.org/).",
             "type": {
               "kind": "SCALAR",
               "name": "String",

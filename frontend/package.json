@@ -25,14 +25,14 @@
     "webpack": "webpack --watch",
     "devserver": "webpack-dev-server --content-base public/",
     "prettier": "prettier --print-width 130 --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "gql:download-schema": "apollo schema:download project-example-schema.json",
-    "gql:codegen": "apollo codegen:generate src/query-types.ts --queries=src/** --outputFlat --schema project-example-schema.json --target=typescript",
+    "gql:download-schema": "apollo service:download project-example-schema.json",
+    "gql:codegen": "apollo client:codegen --includes=src/** --localSchemaFile=project-example-schema.json --outputFlat --globalTypesFile=src/global-query-types.ts --target=typescript src/",
     "gql:format": "prettier --write src/query-types.ts",
     "gql": "yarn gql:download-schema && yarn gql:codegen && yarn gql:format"
   },
   "devDependencies": {
     "@types/webpack-env": "1.13.2",
-    "apollo": "^1.9.2",
+    "apollo": "^2.8.1",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
@@ -78,13 +78,5 @@
     "react-router-dom": "^4.3.1",
     "react-tooltip": "^3.6.1",
     "subscriptions-transport-ws": "^0.9.14"
-  },
-  "apollo": {
-    "schemas": {
-      "beeradvisorBackend": {
-        "schema": "beerrating-schema.json",
-        "endpoint": "http://localhost:9000/graphql"
-      }
-    }
   }
 }
