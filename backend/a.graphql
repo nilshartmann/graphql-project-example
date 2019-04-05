@@ -1,0 +1,4 @@
+query  {
+    users {id login }
+
+}

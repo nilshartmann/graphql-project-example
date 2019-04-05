@@ -25,10 +25,10 @@
     "webpack": "webpack --watch",
     "devserver": "webpack-dev-server --content-base public/",
     "prettier": "prettier --print-width 130 --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "gql:clean": "find ./src/ -type d -name \"__generated__\" -exec rm -rf {} \\;",
-    "gql:download-schema": "rm beerrating-schema.json && apollo schema:download beerrating-schema.json",
-    "gql:codegen": "apollo codegen:generate --queries=src/** --target=typescript --globalTypesFile=src/__generated__/query-types.ts __generated__",
-    "gql": "yarn gql:clean && yarn gql:download-schema && yarn gql:codegen"
+    "gql:download-schema": "apollo schema:download project-example-schema.json",
+    "gql:codegen": "apollo codegen:generate src/query-types.ts --queries=src/** --outputFlat --schema project-example-schema.json --target=typescript",
+    "gql:format": "prettier --write src/query-types.ts",
+    "gql": "yarn gql:download-schema && yarn gql:codegen && yarn gql:format"
   },
   "devDependencies": {
     "@types/webpack-env": "1.13.2",

@@ -8,8 +8,9 @@ import NavigationProvider from "./infra/NavigationProvider";
 //
 // import BeerRatingApp from "./BeerRatingApp";
 // import { AuthProvider } from "./AuthContext";
-// import createApolloClient from "./createApolloClient";
-// const client = createApolloClient();
+import createApolloClient from "./infra/createApolloClient";
+import { ApolloProvider } from "react-apollo";
+const client = createApolloClient();
 //
 // const theBeerRatingApp = (
 //   <ApolloProvider client={client}>
@@ -20,11 +21,13 @@ import NavigationProvider from "./infra/NavigationProvider";
 // );
 
 const theApp = (
-  <Router>
-    <NavigationProvider>
-      <ProjectApp />
-    </NavigationProvider>
-  </Router>
+  <ApolloProvider client={client}>
+    <Router>
+      <NavigationProvider>
+        <ProjectApp />
+      </NavigationProvider>
+    </Router>
+  </ApolloProvider>
 );
 
 const mountNode = document.getElementById("app");

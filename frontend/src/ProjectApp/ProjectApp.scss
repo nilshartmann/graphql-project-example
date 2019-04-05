@@ -1,8 +1,8 @@
 :root {
-  --color-background: #ECF2F6;
-  --color-background-2: #F4F7FB;
-  --color-text: #3E475A;
-  --color-main: #2675BE;
+  --color-background: #ecf2f6;
+  --color-background-2: #f4f7fb;
+  --color-text: #3e475a;
+  --color-main: #2675be;
   --color-white: #ffffff;
 
   --font-text: Roboto, Arial, sans-serif;
@@ -39,7 +39,6 @@
     min-height: 100%;
 
     display: grid;
-
   }
 
   h1 {
@@ -99,7 +98,6 @@
         }
       }
 
-
       td {
         padding-left: 3rem;
       }
@@ -116,7 +114,7 @@
   border-bottom: 9px solid var(--color-main);
 
   .Header {
-    background: linear-gradient(to bottom, var(--color-main), #4B87BE);
+    background: linear-gradient(to bottom, var(--color-main), #4b87be);
     color: var(--color-white);
     height: 4rem;
     font-size: 1.25rem;
@@ -127,6 +125,15 @@
 
     padding-left: 4rem;
     margin-bottom: 3rem;
+
+    a {
+      color: var(--color-white);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   main {
