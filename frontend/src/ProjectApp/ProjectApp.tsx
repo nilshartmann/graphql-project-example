@@ -3,6 +3,8 @@ import * as styles from "./ProjectApp.scss";
 import TasksPage from "../TasksPage";
 import ProjectsPage from "../ProjectsPage";
 import {Form, Input, Select, TextArea} from "../components/form";
+import ButtonBar from "../components/ButtonBar";
+import Button from "../components/Button";
 
 function Header() {
 	return <header className={styles.Header}>
@@ -20,6 +22,11 @@ function AddTaskPage() {
 			<Input label="Finish until"/>
 			<Select label="Assign to"/>
 			<TextArea label="Description"/>
+
+			<ButtonBar>
+				<Button secondary>Cancel</Button>
+				<Button>Save</Button>
+			</ButtonBar>
 
 		</Form>
 
