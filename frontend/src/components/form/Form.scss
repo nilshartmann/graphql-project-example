@@ -1,0 +1,46 @@
+.Form {
+
+  width: 100%;
+
+}
+
+.Input,
+.TextArea,
+.Select {
+
+  margin-bottom: 2rem;
+
+  label, input, textarea, select {
+    width: 100%;
+  }
+
+  label {
+    margin-bottom: 1rem;
+  }
+
+  input,
+  textarea,
+  select {
+    border: 0;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    padding-left:1.5rem;
+    padding-right: 1.5rem;
+
+    color: var(--color-text)
+  }
+
+  textarea {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  input,
+  select{
+    height: 4rem;
+  }
+
+  select {
+
+  }
+}
