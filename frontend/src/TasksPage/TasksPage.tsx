@@ -12,6 +12,7 @@ import { Query } from "react-apollo";
 const TASKS_QUERY = gql`
   query TasksPageQuery($projectId: ID!) {
     project(id: $projectId) {
+      title
       id
       taskList: tasks {
         tasks: nodes {
@@ -27,18 +28,13 @@ const TASKS_QUERY = gql`
   }
 `;
 
-const TABLE = [
-  ["Fenster putzen", "Klaus Dieter Müller", "Running", <NavButton onClick={() => console.log("KLICK")} />],
-  ["Balkon fegen", "Paul Peter Meier", "New", <NavButton onClick={() => console.log("KLICK")} />],
-  ["Müll rausbringen", "Susi Schmidt", "New", <NavButton onClick={() => console.log("KLICK")} />],
-  ["Geschirr spülen", "Maja Smith", "Done", <NavButton onClick={() => console.log("KLICK")} />],
-  ["Staubsaugen", "Pete-Paul Meier", "Running", <NavButton onClick={() => console.log("KLICK")} />]
-];
-
 interface TasksPageTableProps {
+  projectId: string;
   tasks: TasksPageQuery_project_taskList_tasks[];
 }
-function TasksTable({ tasks }: TasksPageTableProps) {
+function TasksTable({ projectId, tasks }: TasksPageTableProps) {
+  const navigator = useNavigator();
+
   return (
     <table>
       <thead>
@@ -57,7 +53,7 @@ function TasksTable({ tasks }: TasksPageTableProps) {
               <td>{task.assignee.name}</td>
               <td>{task.state}</td>
               <td>
-                <NavButton onClick={() => console.log("KLICK")} />
+                <NavButton onClick={() => navigator.openTaskPage(projectId, task.id)} />
               </td>
             </tr>
           );
@@ -75,10 +71,6 @@ export default function TasksPage(props: TasksPageProps) {
 
   return (
     <div className={styles.TasksPage}>
-      <header>
-        <h1>Your Tasks</h1>
-      </header>
-
       <Query<TasksPageQuery, TasksPageQueryVariables> query={TASKS_QUERY} variables={{ projectId }}>
         {({ loading, error, data }) => {
           if (loading) {
@@ -92,7 +84,14 @@ export default function TasksPage(props: TasksPageProps) {
             return <h2>Project not found!</h2>;
           }
 
-          return <TasksTable tasks={data.project.taskList.tasks} />;
+          return (
+            <>
+              <header>
+                <h1>{data.project.title} Tasks</h1>
+              </header>
+              <TasksTable projectId={data.project.id} tasks={data.project.taskList.tasks} />
+            </>
+          );
         }}
       </Query>
 

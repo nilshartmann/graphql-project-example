@@ -58,6 +58,7 @@
   "dependencies": {
     "@githubprimer/octicons-react": "^8.5.0",
     "@types/graphql": "^14.0.3",
+    "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.7",
     "@types/react": "^16.8.11",
     "@types/react-dom": "^16.8.3",
@@ -73,6 +74,7 @@
     "apollo-link-ws": "^1.0.17",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.0",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.3",
     "react-dom": "^16.8.6",

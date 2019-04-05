@@ -5,10 +5,10 @@
 import { TaskState } from "./global-query-types";
 
 // ====================================================
-// GraphQL query operation: TasksPageQuery
+// GraphQL query operation: TaskPageQuery
 // ====================================================
 
-export interface TasksPageQuery_project_taskList_tasks_assignee {
+export interface TaskPageQuery_project_task_assignee {
   __typename: "User";
   /**
    *  The human readable name of the person
@@ -16,7 +16,7 @@ export interface TasksPageQuery_project_taskList_tasks_assignee {
   name: string;
 }
 
-export interface TasksPageQuery_project_taskList_tasks {
+export interface TaskPageQuery_project_task {
   __typename: "Task";
   id: string;
   /**
@@ -24,38 +24,38 @@ export interface TasksPageQuery_project_taskList_tasks {
    */
   title: string;
   /**
+   * A complete and detailed description what should be done in this task.
+   * The description should be understandable also by people that are not
+   * familiar with this task, so they can get into without having
+   * to ask for further details
+   */
+  description: string;
+  /**
    *  Who works on this Task or should work on the task
    */
-  assignee: TasksPageQuery_project_taskList_tasks_assignee;
+  assignee: TaskPageQuery_project_task_assignee;
+  toBeFinishedAt: string;
   state: TaskState;
 }
 
-export interface TasksPageQuery_project_taskList {
-  __typename: "TaskConnection";
-  tasks: TasksPageQuery_project_taskList_tasks[];
-}
-
-export interface TasksPageQuery_project {
+export interface TaskPageQuery_project {
   __typename: "Project";
+  id: string;
   /**
    *  Give your project a simple, concise title
    */
   title: string;
-  id: string;
-  /**
-   * You split your Project into several tasks that you
-   * have to work on to finish this Project's goal
-   */
-  taskList: TasksPageQuery_project_taskList;
+  task: TaskPageQuery_project_task | null;
 }
 
-export interface TasksPageQuery {
+export interface TaskPageQuery {
   /**
    *  Return the specified project
    */
-  project: TasksPageQuery_project | null;
+  project: TaskPageQuery_project | null;
 }
 
-export interface TasksPageQueryVariables {
+export interface TaskPageQueryVariables {
   projectId: string;
+  taskId: string;
 }

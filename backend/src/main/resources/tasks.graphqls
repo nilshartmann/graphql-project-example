@@ -25,6 +25,8 @@ type Project {
   # You split your Project into several tasks that you
   # have to work on to finish this Project's goal
   tasks(page: Int, pageSize: Int): TaskConnection!
+
+  task(id: ID!): Task
 }
 
 type Category {

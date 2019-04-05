@@ -72,6 +72,10 @@ public class GraphQLApi {
 
                     return new TaskConnection(pageResult, taskPage.getContent());
                 })
+                .dataFetcher("task", environment -> {
+                    long id = Long.parseLong(environment.getArgument("id"));
+                    return taskRepository.findById(id).orElse(null);
+                })
             )
 			.build();
 

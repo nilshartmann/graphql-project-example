@@ -6,7 +6,6 @@ import ProjectsPage from "../ProjectsPage";
 import TasksPage from "../TasksPage";
 import { Link } from "react-router-dom";
 import { ApolloClient } from "apollo-client";
-import gql from "graphql-tag";
 import { withApollo } from "react-apollo";
 import TaskPage from "../TaskPage/TaskPage";
 
@@ -27,11 +26,11 @@ export function ProjectApp({ client }: ProjectAppProps) {
       <Header />
       <main>
         <Switch>
-          <Route exact path={"/x"} component={ProjectsPage} />
+          <Route exact path={"/"} component={ProjectsPage} />
           <Route exact path={"/project/:projectId/tasks"} component={TasksPage} />
+          <Route exact path={"/project/:projectId/tasks/:taskId"} component={TaskPage} />
           <Route exact path={"/project/:projectId/addtaks"} component={AddTaskPage} />
         </Switch>
-        <TaskPage />
       </main>
     </div>
   );
