@@ -1,8 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { ApolloProvider } from "react-apollo";
 import ProjectApp from "./ProjectApp/ProjectApp";
+import NavigationProvider from "./infra/NavigationProvider";
+
 //
 // import BeerRatingApp from "./BeerRatingApp";
 // import { AuthProvider } from "./AuthContext";
@@ -17,8 +19,13 @@ import ProjectApp from "./ProjectApp/ProjectApp";
 //   </ApolloProvider>
 // );
 
-const theApp = <ProjectApp/>;
-
+const theApp = (
+  <Router>
+    <NavigationProvider>
+      <ProjectApp />
+    </NavigationProvider>
+  </Router>
+);
 
 const mountNode = document.getElementById("app");
 ReactDOM.render(theApp, mountNode);

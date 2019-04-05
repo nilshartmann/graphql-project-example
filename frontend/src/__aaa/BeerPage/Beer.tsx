@@ -72,7 +72,9 @@ export default class Beer extends React.Component<BeerProps> {
             </div>
             <div className={styles.Ratings}>
               <h1>What customers say:</h1>
-              {ratings.map(rating => <Rating key={rating.id} rating={rating} />)}
+              {ratings.map(rating => (
+                <Rating key={rating.id} rating={rating} />
+              ))}
             </div>
 
             <h1>

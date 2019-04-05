@@ -1,13 +1,10 @@
 import * as React from "react";
-import * as styles from "./Form.scss"
+import * as styles from "./Form.scss";
 
 interface FormProps {
-	children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export default function Form({children}: FormProps) {
-	return <div className={styles.Form}>
-		{children}
-	</div>
-
+export default function Form({ children }: FormProps) {
+  return <div className={styles.Form}>{children}</div>;
 }
