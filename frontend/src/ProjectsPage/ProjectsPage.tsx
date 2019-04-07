@@ -63,15 +63,15 @@ export default function ProjectsPage() {
       </header>
 
       <Query<ProjectsPageQuery> query={PROJECTS_QUERY}>
-        {result => {
-          if (result.loading) {
+        {({ loading, error, data }) => {
+          if (loading) {
             return <h2>Loading...</h2>;
           }
-          if (result.error || !result.data) {
+          if (error || !data) {
             return <h2>Sorry... Something failed while loading data </h2>;
           }
 
-          return <ProjectsTable projects={result.data.projects} />;
+          return <ProjectsTable projects={data.projects} />;
         }}
       </Query>
     </div>
