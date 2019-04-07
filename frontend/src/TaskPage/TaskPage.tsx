@@ -1,18 +1,11 @@
 import * as React from "react";
 import * as styles from "./TaskPage.scss";
-import Cardboard from "../components/Cardboard";
-import Card, { InfoCard } from "../components/Card";
 import { RouteComponentProps } from "react-router";
 import gql from "graphql-tag";
-import {
-  TaskPageQuery,
-  TaskPageQuery_project,
-  TaskPageQuery_project_task,
-  TaskPageQueryVariables
-} from "../querytypes/TaskPageQuery";
+import { TaskPageQuery, TaskPageQuery_project, TaskPageQueryVariables } from "../querytypes/TaskPageQuery";
 import { Query } from "react-apollo";
-import moment = require("moment");
-import { Link } from "react-router-dom";
+import TaskView from "./TaskView";
+import TaskPageHeader from "./TaskPageHeader";
 
 const TASK_QUERY = gql`
   query TaskPageQuery($projectId: ID!, $taskId: ID!) {
@@ -32,47 +25,6 @@ const TASK_QUERY = gql`
     }
   }
 `;
-
-interface TaskPageHeaderProps {
-  project: TaskPageQuery_project;
-}
-function TaskPageHeader({ project }: TaskPageHeaderProps) {
-  const { title, task } = project;
-
-  const titleLink = <Link to={`/project/${project.id}/tasks`}>{project.title}</Link>;
-
-  const titleElement = task ? (
-    <h1>
-      {titleLink} > {task.title}
-    </h1>
-  ) : (
-    <h1>{titleLink}</h1>
-  );
-
-  return <header>{titleElement}</header>;
-}
-
-interface TaskViewProps {
-  task: TaskPageQuery_project_task;
-}
-
-function TaskView({ task }: TaskViewProps) {
-  const finishedUntil = moment(task.toBeFinishedAt);
-  const finishedUntilString = finishedUntil.format("MMM D, YYYY");
-
-  return (
-    <>
-      <Cardboard className={styles.TaskStateCardboard}>
-        <InfoCard label="To be finished until" title={finishedUntilString} />
-        <InfoCard label={"Assignee"} title={task.assignee.name} />
-        <InfoCard label="State" title={task.state} />
-      </Cardboard>
-
-      <h1>Description</h1>
-      <Card>{task.description}</Card>
-    </>
-  );
-}
 
 interface TaskPageProps {
   project: TaskPageQuery_project;

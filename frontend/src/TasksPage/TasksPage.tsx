@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import { RouteComponentProps } from "react-router";
 import { TasksPageQuery, TasksPageQuery_project_taskList_tasks, TasksPageQueryVariables } from "../querytypes/TasksPageQuery";
 import { Query } from "react-apollo";
+import { mapTaskState } from "../util/mapper";
 
 const TASKS_QUERY = gql`
   query TasksPageQuery($projectId: ID!) {
@@ -51,7 +52,7 @@ function TasksTable({ projectId, tasks }: TasksPageTableProps) {
             <tr key={task.id}>
               <td>{task.title}</td>
               <td>{task.assignee.name}</td>
-              <td>{task.state}</td>
+              <td>{mapTaskState(task.state)}</td>
               <td>
                 <NavButton onClick={() => navigator.openTaskPage(projectId, task.id)} />
               </td>

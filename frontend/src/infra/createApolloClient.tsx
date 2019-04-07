@@ -56,12 +56,6 @@ export default function createApolloClient() {
   // 	return headers;
   // });
 
-  fetch(APOLLO_URL, {
-    method: "POST"
-  })
-    .then(r => console.log(r))
-    .catch(t => console.log("ERROR", t));
-
   return new ApolloClient({
     link: ApolloLink.from([errorLink, httpLink]),
     cache: new InMemoryCache()
