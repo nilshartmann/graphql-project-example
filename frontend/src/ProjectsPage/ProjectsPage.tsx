@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 import { ProjectsPageQuery, ProjectsPageQuery_projects } from "../querytypes/ProjectsPageQuery";
 import { Query } from "react-apollo";
 
-const PROJECTS_QUERY = gql`
+const PROJECTS_PAGE_QUERY = gql`
   query ProjectsPageQuery {
     projects {
       id
@@ -21,10 +21,18 @@ const PROJECTS_QUERY = gql`
   }
 `;
 
+const PROJECTS_QUERY = gql`
+  query ProjectsQuery {
+    projects {
+      id
+      title
+    }
+  }
+`;
+
 interface ProjectsTableProps {
   projects: ProjectsPageQuery_projects[];
 }
-
 function ProjectsTable({ projects }: ProjectsTableProps) {
   const navigator = useNavigator();
   return (
@@ -61,8 +69,7 @@ export default function ProjectsPage() {
       <header>
         <h1>Your Projects</h1>
       </header>
-
-      <Query<ProjectsPageQuery> query={PROJECTS_QUERY}>
+      <Query<ProjectsPageQuery> query={PROJECTS_PAGE_QUERY}>
         {({ loading, error, data }) => {
           if (loading) {
             return <h2>Loading...</h2>;

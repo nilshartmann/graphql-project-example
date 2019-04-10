@@ -12,6 +12,13 @@ export enum TaskState {
   RUNNING = "RUNNING"
 }
 
+export interface AddTaskInput {
+  assigneeId: string;
+  description: string;
+  title: string;
+  toBeFinishedAt: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

@@ -6,19 +6,10 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import nh.graphql.tasks.ProjectRepository;
-import nh.graphql.tasks.domain.Project;
-import nh.graphql.tasks.domain.Task;
-import nh.graphql.tasks.domain.TaskRepository;
-import nh.graphql.tasks.domain.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -33,51 +24,49 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Component
 public class GraphQLApi {
 
-	private final static Logger logger = LoggerFactory.getLogger(GraphQLApi.class);
+    private final static Logger logger = LoggerFactory.getLogger(GraphQLApi.class);
 
-	@Value("classpath:/tasks.graphqls")
-	private Resource schemaResource;
-
-	@Autowired
+    @Autowired
     private QueryDataFetchers queryDataFetchers;
-	@Autowired
+    @Autowired
     private ProjectDataFetchers projectDataFetchers;
+    @Autowired
+    private MutationFetchers mutationFetchers;
 
 
-	@Bean
-	public GraphQLSchema graphQLSchema(final UserRepository userRepository, final ProjectRepository projectRepository,
-                                       final TaskRepository taskRepository) throws Exception {
-		logger.info("Building GraphQL Schema");
+    @Bean
+    public GraphQLSchema graphQLSchema() {
+        logger.info("Building GraphQL Schema");
 
-		SchemaParser schemaParser = new SchemaParser();
-		InputStream inputStream = getClass().getResourceAsStream("/tasks.graphqls");
-		TypeDefinitionRegistry typeRegistry = schemaParser.parse(new InputStreamReader(inputStream));
+        SchemaParser schemaParser = new SchemaParser();
+        InputStream inputStream = getClass().getResourceAsStream("/tasks.graphqls");
+        TypeDefinitionRegistry typeRegistry = schemaParser.parse(new InputStreamReader(inputStream));
 
-		RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
-			.type(newTypeWiring("Query")
-				.dataFetcher("users", queryDataFetchers.users)
-                .dataFetcher("projects", environment -> projectRepository.findAll())
+        RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
+            .type(newTypeWiring("Query")
+                .dataFetcher("users", queryDataFetchers.users)
+                .dataFetcher("projects", queryDataFetchers.projects)
                 .dataFetcher("project", queryDataFetchers.project)
-			)
-            .type(newTypeWiring("Project")
-                .dataFetcher("tasks", projectDataFetchers.tasks
-                )
-                .dataFetcher("task", environment -> {
-                    long id = Long.parseLong(environment.getArgument("id"));
-                    return taskRepository.findById(id).orElse(null);
-                })
             )
-			.build();
+            .type(newTypeWiring("Mutation")
+                .dataFetcher("changeProjectTitle", mutationFetchers.changeProjectTitle)
+                .dataFetcher("addTask", mutationFetchers.addTask)
+            )
+            .type(newTypeWiring("Project")
+                .dataFetcher("tasks", projectDataFetchers.tasks)
+                .dataFetcher("task", projectDataFetchers.task)
+            )
+            .build();
 
-		SchemaGenerator schemaGenerator = new SchemaGenerator();
-		return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
-	}
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
+    }
 
-	@Bean
-	public GraphQL graphql(GraphQLSchema graphQLSchema) {
-		return GraphQL.newGraphQL(graphQLSchema).
+    @Bean
+    public GraphQL graphql(GraphQLSchema graphQLSchema) {
+        return GraphQL.newGraphQL(graphQLSchema).
             build();
-	}
+    }
 
 
 }

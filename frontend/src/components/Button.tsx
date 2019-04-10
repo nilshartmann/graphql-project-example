@@ -8,13 +8,14 @@ interface ButtonProps {
   secondary?: boolean;
   icon?: Icon;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
-export default function Button({ children, icon, onClick, secondary }: ButtonProps) {
+export default function Button({ children, icon, onClick, secondary, disabled }: ButtonProps) {
   const buttonClassName = secondary ? `${styles.Button} ${styles.secondary}` : styles.Button;
 
   return (
-    <button className={buttonClassName} onClick={onClick}>
+    <button className={buttonClassName} onClick={onClick} disabled={disabled}>
       {children}
       {icon && (
         <span className={styles.Icon}>

@@ -39,4 +39,11 @@ public class QueryDataFetchers {
         }
     };
 
+    DataFetcher projects = new DataFetcher() {
+        @Override
+        public Object get(DataFetchingEnvironment environment) throws Exception {
+            return projectRepository.findAll();
+        }
+    };
+
 }

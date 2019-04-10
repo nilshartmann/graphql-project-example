@@ -40,4 +40,12 @@ public class ProjectDataFetchers {
         }
     };
 
+    DataFetcher task = new DataFetcher() {
+        @Override
+        public Task get(DataFetchingEnvironment environment) throws Exception {
+            long id = Long.parseLong(environment.getArgument("id"));
+            return taskRepository.findById(id).orElse(null);
+        }
+    };
+
 }

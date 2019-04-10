@@ -90,3 +90,15 @@ type Query {
   # Return the specified project
   project(id: ID!): Project
 }
+
+input AddTaskInput {
+  title: String!
+  description: String!
+  toBeFinishedAt: String!
+  assigneeId: ID!
+}
+
+type Mutation {
+  changeProjectTitle(id: ID, newTitle: String!): Project
+  addTask(projectId: ID!, input: AddTaskInput!): Task!
+}

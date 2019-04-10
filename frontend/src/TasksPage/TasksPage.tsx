@@ -72,7 +72,11 @@ export default function TasksPage(props: TasksPageProps) {
 
   return (
     <div className={styles.TasksPage}>
-      <Query<TasksPageQuery, TasksPageQueryVariables> query={TASKS_QUERY} variables={{ projectId }}>
+      <Query<TasksPageQuery, TasksPageQueryVariables>
+        query={TASKS_QUERY}
+        fetchPolicy="cache-and-network"
+        variables={{ projectId }}
+      >
         {({ loading, error, data }) => {
           if (loading) {
             return <h2>Loading...</h2>;
@@ -97,7 +101,7 @@ export default function TasksPage(props: TasksPageProps) {
       </Query>
 
       <div className={styles.ButtonBar}>
-        <Button onClick={e => navigator.openAddTaskPage("PPP")} icon={ChevronRight}>
+        <Button onClick={e => navigator.openAddTaskPage(projectId)} icon={ChevronRight}>
           Add Task
         </Button>
       </div>
