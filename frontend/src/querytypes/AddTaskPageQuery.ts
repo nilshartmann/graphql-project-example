@@ -6,6 +6,15 @@
 // GraphQL query operation: AddTaskPageQuery
 // ====================================================
 
+export interface AddTaskPageQuery_project {
+  __typename: "Project";
+  id: string;
+  /**
+   *  Give your project a simple, concise title
+   */
+  title: string;
+}
+
 export interface AddTaskPageQuery_users {
   __typename: "User";
   /**
@@ -16,5 +25,13 @@ export interface AddTaskPageQuery_users {
 }
 
 export interface AddTaskPageQuery {
+  /**
+   *  Return the specified project
+   */
+  project: AddTaskPageQuery_project | null;
   users: AddTaskPageQuery_users[];
+}
+
+export interface AddTaskPageQueryVariables {
+  projectId: string;
 }
