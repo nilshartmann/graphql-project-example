@@ -23,9 +23,8 @@ Prerequisites:
 
 - Port 9000 must be available for the backend
 - Port 9080 must be available for the frontend webserver
-- You need to have installed Java/JDK 11 for the backend and `yarn` for the frontend build and dependency management (`npm` might also work)
 
-Prepare: Clone this repository
+Before you start: clone this repository
 
 1. `git clone https://github.com/nilshartmann/graphql-project-example.git`
 
