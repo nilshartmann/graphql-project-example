@@ -12,12 +12,22 @@ This repository contains a very simple GraphQL example application, using the fo
 
 # Installing and starting
 
+Required software:
+
+- Java/JDK 11 (I've used OpenJDK 11 for development)
+- NodeJS (version 10.x, version 12.x [does not work currently](https://github.com/nilshartmann/graphql-project-example/issues/1))
+- yarn (I'm using version 1.16, but other versions should work too).
+- alternative: npm might work instead of yarn, but you need npm version 6.4.x)
+
 Prerequisites:
 
-- Clone this repository locally
 - Port 9000 must be available for the backend
 - Port 9080 must be available for the frontend webserver
 - You need to have installed Java/JDK 11 for the backend and `yarn` for the frontend build and dependency management (`npm` might also work)
+
+Prepare: Clone this repository
+
+1. `git clone https://github.com/nilshartmann/graphql-project-example.git`
 
 Step 1: Build and start the backend
 
